@@ -1,7 +1,7 @@
 from selenium import webdriver
 import sqlite3, requests, time, re
-from selenium.webdriver.edge.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service
 
 def regexp(pattern, value):
     if value is None:
@@ -172,7 +172,7 @@ class GitHubScraper:
         self.driver.quit()
 
 
-
-scraper = GitHubScraper('ogun')
-# scraper.get_data()
-scraper.get_user_mails()
+scraper = GitHubScraper("ogun")
+# scraper.get_data() 
+users = scraper.get_user_mails()
+print(users)
