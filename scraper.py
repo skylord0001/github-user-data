@@ -35,6 +35,21 @@ class GitHubScraper:
         ''')
         self.conn.commit()
 
+    def export_all_to_json(self, json_file_path):
+        self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = [table[0] for table in self.cursor.fetchall()]
+
+        all_data = {}
+        for table in tables:
+            self.cursor.execute(f"SELECT * FROM {table}")
+            rows = self.cursor.fetchall()
+            column_names = [description[0] for description in self.cursor.description]
+            all_data[table] = [dict(zip(column_names, row)) for row in rows]
+
+        with open(json_file_path, "a") as json_file:
+            json_file.write("\n")
+            json.dump(all_data, json_file, indent=4)
+
     def get_data(self, location):
         self.location = location
         self.create_table()
