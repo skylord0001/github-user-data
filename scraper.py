@@ -1,6 +1,7 @@
 from selenium import webdriver
-import sqlite3, requests, time, re
+import sqlite3, requests, time, re, os, pickle, json
 from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.options import Options
 from selenium.webdriver.edge.service import Service
 
 def regexp(pattern, value):
@@ -14,13 +15,14 @@ def regexp(pattern, value):
         return False
 
 class GitHubScraper:
-    def __init__(self, location):
+    def __init__(self):
         self.db_name = 'github_user_data.db'
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()
-        self.location = location
-        self.create_table()
         self.conn.create_function("REGEXP", 2, regexp)
+        options = Options()
+        options.add_argument("user-data-dir=C:\\Users\\devfe\\AppData\\Local\\Microsoft\\Edge\\User Data")
+        options.add_argument("profile-directory=Personal")
 
     def create_table(self):
         self.cursor.execute(f'''
@@ -33,80 +35,69 @@ class GitHubScraper:
         ''')
         self.conn.commit()
 
-    def get_data(self):
+    def get_data(self, location):
+        self.location = location
+        self.create_table()
         if not self.login():
             return 
         base_url = 'https://api.github.com/search/users'
         per_page = 100
 
         self.cursor.execute(f'SELECT COUNT(*) FROM {self.location}')
-        current_count = self.cursor.fetchone()[0]
-
         url = f'{base_url}?q=location:{self.location}&per_page=1'
         response = requests.get(url)
         data = response.json()
         total_count = data.get('total_count', 0)
-
-        if current_count >= total_count:
-            print("No new data to fetch. Exiting...")
-            return self.update_primary_link()
-
-        start_page = (current_count // per_page)
-        while True:
-            url = f'{base_url}?q=location:{self.location}&per_page={per_page}&page={start_page}&s=joined&o=asc'
+        print(data)
+        if data.get('message') and "API rate limit exceeded" in data['message']:
+            print("Sleeping.....")
+            time.sleep(18)
+            return self.get_data(location)
+        for i in range(10):
+            url = f'{base_url}?q=location:{self.location}&per_page=100&page={i+1}&sort=joined'
             response = requests.get(url)
             data = response.json()
             users = data.get('items', [])
-
             if not users:
-                print("No more data to fetch. Exiting...")
-                break
-
-            print(f'Fetching page {start_page+1} of {total_count // per_page}')
-            
+                if data.get('message') and "API rate limit exceeded" in data['message']:
+                    print("Sleeping.....")
+                    time.sleep(18)
+                    url = f'{base_url}?q=location:{self.location}&per_page=100&page={i+1}&sort=joined'
+                    response = requests.get(url)
+                    data = response.json()
+                    users = data.get('items', [])
+                    if not users:
+                        print(users)
+                        print("No more data to fetch. Exiting...")
+                        break
+            print(f'Fetching page {i+1} of {total_count // per_page}')
             user_data = [(user['login'], user['html_url']) for user in users]
-            
-            # If we are on the start page and have a partial page's worth of data,
-            # we should overwrite the first few rows
-            if current_count % per_page != 0 and start_page == (current_count // per_page):
-                # Calculate the number of rows to overwrite
-                rows_to_overwrite = current_count % per_page
-                self.cursor.executemany(
-                    f'UPDATE {self.location} SET username = ?, profile_url = ? WHERE id = ?',
-                    [(user['login'], user['html_url'], i) for i, user in enumerate(users[:rows_to_overwrite])]
-                )
-                self.conn.commit()
-
-                # Insert the remaining new rows
-                user_data = user_data[rows_to_overwrite:]
-            
             self.cursor.executemany(f'INSERT INTO {self.location} (username, profile_url) VALUES (?, ?)', user_data)
             self.conn.commit()
-
-            if len(users) < per_page or start_page * per_page >= total_count:
-                break
-
-            start_page += 1
         
-        self.update_primary_link()
+        # self.update_primary_link()
 
-    def update_primary_link(self):
-        self.cursor.execute(f'SELECT id, username, profile_url FROM {self.location} WHERE primary_link IS NULL')
+    def update_primary_link(self, location):
+        if not self.login():
+            return 
+        self.location = location
+        self.cursor.execute(f'SELECT id, profile_url FROM {self.location} WHERE primary_link IS NULL')
         users = self.cursor.fetchall()
 
         go_time = 0
-        
-        for index, db_username, profile_url in users:
-            primary_link = self.get_name_primary_link(profile_url)
-            print(f'{index}. Username: {db_username}  primary_link: {primary_link}')
-            if primary_link:
+
+        for id, profile_url in users:
+            primary_link, username = self.get_name_primary_link(profile_url)
+            if primary_link and bool(re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", primary_link)):
+                print(f'{id}. Username: {username}  primary_link: {primary_link}')
                 go_time +=1
-                self.cursor.execute(f'UPDATE {self.location} SET primary_link = ? WHERE username = ?', (primary_link, db_username))
+                self.cursor.execute(f'UPDATE {self.location} SET primary_link = ? WHERE id = ?', (primary_link, id))
+                if username:
+                    self.cursor.execute(f'UPDATE {self.location} SET username = ? WHERE id = ?', (username, id))
                 if go_time % 10 == 0:
                     self.conn.commit()
-            if index % 100 == 0:
-                print("100 requested, sleeping 5 secs to prevent 429")
-                time.sleep(5)
+            else:
+                self.cursor.execute(f'DELETE FROM {self.location} WHERE id = ?', (id,))
         self.conn.commit()
 
     def get_user_mails(self):
@@ -115,14 +106,27 @@ class GitHubScraper:
         return users_mails
 
     def login(self):
-        driver = webdriver.Edge()
-        driver.get('https://github.com/login')
+        if not self.driver:
+            self.driver = webdriver.Edge()
+        if False and os.path.exists("cookies.pkl"):
+            with open("cookies.pkl", "rb") as file:
+                cookies = pickle.load(file)
+            self.driver.get('https://github.com/toheebcodes')
+            for cookie in cookies:
+                self.driver.add_cookie(cookie)
+            self.driver.refresh()
+            if self.driver.current_url == "https://github.com/toheebcodes":
+                return True
+        
+        self.driver.get('https://github.com/login')
         wait_time = 0
         
         while True:
             time.sleep(2)
             wait_time += 1
-            if driver.current_url == "https://github.com/":
+            if self.driver.current_url == "https://github.com/":
+                # with open("cookies.pkl", "wb") as file:
+                #    pickle.dump(self.driver.get_cookies(), file)
                 time.sleep(2)
                 return True
             if wait_time % 5 == 0:
@@ -132,38 +136,42 @@ class GitHubScraper:
                 return False
 
     def get_name_primary_link(self, profile_url):
-        result = self.driver.execute_script(f"""
+        response = self.driver.execute_script(f"""
                 async function getNamePrimaryLink(profileUrl) {{
                     try {{
                         const response = await fetch(profileUrl);
                         if (!response.ok) {{
                             console.error("response.status_code: ", response.status);
-                            return null;
+                            return [null, null];
                         }}
                         const text = await response.text();
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(text, 'text/html');
 
                         let primaryLink = null;
+                        let username = null;
 
                         const primaryLinkElement = doc.querySelector('.Link--primary');
+                        const usernameElement = doc.querySelector('.vcard-fullname');
                         if (primaryLinkElement) {{
                             primaryLink = primaryLinkElement.textContent.trim();
                         }}
+                        if (usernameElement) {{
+                            username = usernameElement.textContent.trim();
+                        }}
 
-                        return primaryLink;
+                        return [primaryLink, username];
                     }} catch (error) {{
                         console.error("Error fetching the profile URL:", error);
-                        return null;
+                        return [null, null];
                     }}
                 }}
 
                 return getNamePrimaryLink('{profile_url}');
         """)
-        # if result is None This user has no primary link
-        primary_link = result
-
-        return primary_link
+        print(response)
+        primary_link, username = response[0], response[1]
+        return primary_link, username
 
     def close(self):
         if self.login:
@@ -171,8 +179,3 @@ class GitHubScraper:
         time.sleep(2)
         self.driver.quit()
 
-
-scraper = GitHubScraper("ogun")
-# scraper.get_data() 
-users = scraper.get_user_mails()
-print(users)
