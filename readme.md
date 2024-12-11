@@ -1,10 +1,7 @@
-### Hence: I'm using windows and i love edge so if you're a chrome os different os user and want to use this tools u can open issue i will update to support that
+### Hence: I'm using windows and i love edge so if you're a chrome or different os user and want to use this tools u can open issue i will update to support that
 
-#### Sample Data (email, and username only)
+#### Sample usage
 
-```python
-[('juniorohanyere', 'junohanyere@gmail.com'), ('Giddy-chordz', 'gideonakinpelumi@gmail.com'), ('joshuaah101', 'faloyejoshua@gmail.com'), ('XVI-IX', 'oladoja14@gmail.com'), ('Aphatheology', 'aphatheology@gmail.com'), ('Snows04', 'mikesnows04@gmail.com'), ('oyerohabib', 'oyerohabib@yahoo.com'), ('Ariyibi-Baseet', 'ariyibi.baseet@gmail.com'), ('HassanTeslim007', 'hassanteslim12@gmail.com'), ('heisguyy', 'oluwatosinaina424@gmail.com'), ('omitogunjesufemi', 'omitogunjesufemi@gmail.com'), ('MaryOJob', 'i@maryjob.com'), ('skyusuf15', 'sanusikorede@gmail.com'), ('Wonderfullymade01', 'fayomifiyinfoluwa@gmail.com'), ('VictorAdeB', 'Layadeadebayo@gmail.com'), ('Olayinka4071', '66327946+Olayinka4071@users.noreply.github.com'), ('horlarme', 'lawaloladipupo@outlook.com'), ('Isaiahcodes-3321', 'shellisaiah2020@gmail.com'), ('Florencecoker', 'damselpiccolo18@gmail.com'), ('jafegideon04', 'arowologideon45@gmail.com'), ('slaveo', 'labdu325@gmail.com'), ('Humiditii', 'humiditii45@gmail.com'), ('fawazpro', 'fawazpro27@gmail.com'), ('Smartrove', 'olaokunolalekan@gmail.com'), ('ayorich', 'kayodele17@gmail.com'), ('sammyloaded', 'sammyloadedcon@gmail.com'), ('lokson3', 'olokoolabisi.n@gmail.com'), ('Shantel001', 'kadirishantel@gmail.com'), ('MarysamuelPel', 'samuelmary1617@gmail.com'), ('A-Female-In-Tech', 'blesshow2019@gmail.com'), ('uty123', 'queenzyuty@yahoo.com'), ('adeyinkabadmus', 'adeyinkabadmus@gmail.com'), ('IbrahimO123', 'oliyideibrahim123@gmail.com'), ('juniorohanyere', 'junohanyere@gmail.com'), ('Giddy-chordz', 'gideonakinpelumi@gmail.com'), ('joshuaah101', 'faloyejoshua@gmail.com'), ('XVI-IX', 'oladoja14@gmail.com'), ('Aphatheology', 'aphatheology@gmail.com'), ('Snows04', 'mikesnows04@gmail.com'), ('oyerohabib', 'oyerohabib@yahoo.com'), ('Ariyibi-Baseet', 'ariyibi.baseet@gmail.com'), ('HassanTeslim007', 'hassanteslim12@gmail.com'), ('heisguyy', 'oluwatosinaina424@gmail.com'), ('omitogunjesufemi', 'omitogunjesufemi@gmail.com'), ('MaryOJob', 'i@maryjob.com'), ('skyusuf15', 'sanusikorede@gmail.com'), ('Wonderfullymade01', 'fayomifiyinfoluwa@gmail.com'), ('VictorAdeB', 'Layadeadebayo@gmail.com'), ('Olayinka4071', '66327946+Olayinka4071@users.noreply.github.com'), ('Isaiahcodes-3321', 'shellisaiah2020@gmail.com'), ('horlarme', 'lawaloladipupo@outlook.com'), ('Florencecoker', 'damselpiccolo18@gmail.com'), ('jafegideon04', 'arowologideon45@gmail.com'), ('slaveo', 'labdu325@gmail.com'), ('Humiditii', 'humiditii45@gmail.com'), ('fawazpro', 'fawazpro27@gmail.com'), ('Smartrove', 'olaokunolalekan@gmail.com'), ('ayorich', 'kayodele17@gmail.com'), ('sammyloaded', 'sammyloadedcon@gmail.com'), ('lokson3', 'olokoolabisi.n@gmail.com'), ('Shantel001', 'kadirishantel@gmail.com'), ('MarysamuelPel', 'samuelmary1617@gmail.com'), ('A-Female-In-Tech', 'blesshow2019@gmail.com'), ('uty123', 'queenzyuty@yahoo.com'), ('adeyinkabadmus', 'adeyinkabadmus@gmail.com'), ('IbrahimO123', 'oliyideibrahim123@gmail.com'), ('tImIhAcK', 'adeniranjohn2016@gmail.com'), ('orunto', 'oruntoeniola@aol.com'), ('godsfather16', '44070293+godsfather16@users.noreply.github.com'), ('acemarybajisma', 'marybajisma123@gmail.com'), ('Midedollars', 'olanrewajuolamide100@gmail.com'), ('afolabiolayinka', 'folabiolayinka@gmail.com'), ('ElizabethAnu', 'elizabethanuoluwa495@gmail.com'), ('Lekan-Aden', 'lekan.adenusi@gmail.com'), ('AngelofPc', 'dagrandmaster01@gmail.com'), ('fizeul', 'fizeul@gmail.com'), ('Harkinola221', 'olabisimichael123@gmail.com'), ('sparkybug', 'ukaegbuosinachi15@gmail.com'), ('peterjato', 'www.petergold@gmail.com'), ('Nifemiasaolu', 'theophilusasaolu@gmail.com'), ('Gfash436', 'Fashola436@gmail.com'), ('iamdavidabayomi', 'iamdavidabayomi@gmail.com'), ('Ose-Augustine', 'osebeckley@gmail.com'), ('TemitayoADEYEMO', 'tayo.ibk16@gmail.com'), ('brendelo', 'brendelo@yahoo.co.uk'), ('daniel-fasiku', 'daniel.fasiku@stu.cu.edu.ng'), ('chivicks5', 'njokuvictor509@gmail.com'), ('Damieee', 'joshezekiel.dev@gmail.com'), ('sammielas', 'samflicks@gmail.com'), ('Adamight30', 'olaideadams1@gmail.com'), ('mustafaalameen', 'mustafaalameen2017@gmail.com'), ('adenaikeidris', 'adenaikeidris01@gmail.com'), ('Shirley-Agbaowe', 'laeloise@gmail.com'), ('Her-majesty-tech', 'oamagbamwan@gmail.com'), ('MDindahouse', 'sayhello2moa@gmail.com'), ('Ebunoluwaoyetunji', 'oyetunjiebunoluwa90@gmail.com'), ('Ayanfe8', 'ayanfe4greatness@gmail.com'), ('Abigail-Akinsulore', 'abigailakinsulore@gmail.com'), ('quantumloki', 'lokiquantum@gmail.com'), ('dcruissee', 'daniel.olaniyi@stu.cu.edu.ng'), ('ilerioluwa94', 'eustaceinfosemman@gmail.com'), ('ojogbon', 'ojogbonoladele@gmail.com'), ('Siege7', 'saviourekanem86@gmail.com'), ('giveway99', 'sodiqadebayo05@gmail.com'), ('Mukomi', 'micheal.akinmuko@hotmail.com'), ('Blissman11', 'kenny01azeez@gmail.com'), ('Caycode', 'khalebean@gmail.com'), ('oluscobless01', 'oluscobless01@gmail.com'), ('Khodecipher', 'lavezziomotola@gmail.com'), ('Faithshow', 'faithshow4great9204@gmail.com'), ('Iloritof', 'iloridaniel2016@gmail.com'), ('Shantellizzy', 'agboolaoluwakemilizzy@gmail.com'), ('RCF-FUNAAB', 'rcffunaab24@gmail.com'), ('Jinajoks', 'ajjinaad@gmail.com'), ('bowiavatar', 'bowiavatar@gmail.com'), ('peterAgekameh', 'osipeter94@gmail.com'), ('mrproddyg007', 'rjdagreta@gmail.com'), ('derrickemmy', 'dherrickemmy@gmail.com'), ('AbiolaDave', 'abioladave24@gmail.com'), ('olu369', 'olusolasubair@gmail.com'), ('Musiizle', 'musiizle@gmail.com'), ('Mictims', 'hardey85@gmail.com'), ('tosinjones', 'benjamin.dada@covenantuniversity.com'), ('Afolayanjoshua', 'Afolayanjoshuaiyiola58@gmail.com'), ('SirTee24', 'ogundiransamuel95@gmail.com'), ('sandraaladetan', 'sandraaladetan@gmail.com'), ('Trusting78302055t', 'trustingbadess@gmail.com'), ('olumide050', 'olumidegbolahan63@gmail.com'), ('FIRSTLADY19', 'firstlady19dec@gmail.com'), ('Olamidehash1234', 'olamideadeola2005@gmail.com'), ('Olafamurse', 'toprockinvestment@gmail.com'), ('princeade45', 'kehindeadenle45@yahoo.com'), ('tunjipaul', 'tunjipaul007@gmail.com'), ('Distinction2915', 'adeoyedayo394@gmail.com'), ('OgunTechies', 'oguntechies@gmail.com'), ('Tobi-Obadire', 'tobilobatejumade09@gmail.com'), ('Viqelee', 'soyoyevictor@gmail.com'), ('AbdurrashidSamaila', 'Www.abdurrashidsamaila99@gmail.com'), ('richcrown', 'adeolatolulope29@gmail.com'), ('prophetakanbi', 'seer@prophetakanbi.org'), ('1-12-15-13-1-8', 'Alopaparazy@yahoo.com'), ('TheNobleMan01', 'mustaphaaa1.20@student.funaab.edu.ng'), ('Temitopeoo2', 'topkid2012@rocketmail.com'), ('Eragold123', 'ayobamiefuwape@gmail.com'), ('Rahmatullah-Abioye', 'abioyero1.19@student.funaab.edu.ng'), ('jesudun', 'jesudun@gmail.com')]
-```
 - install requirements
 
 - create new file main.py or edit the main.py to
@@ -12,17 +9,25 @@
 ```python
 from scraper import GitHubScraper
 
-location_tag = "ogun" # change to ur location tag could have space etc or even ur coutry name its self e.g Nigeria
+# your locations
+location_tag = ["Lagos", "Ogun", "Osun", "Oyo"]
 
-scraper = GitHubScraper(location_tag)
+scraper = GitHubScraper()
 
-# scraper.get_data() 
-# uncooment above line will get data (username, profile url, and primary link where primary link is most time email, website if no email or social account if no website or null if user have set)
+# fetch data for each location provided max is 100*10
+for location in location_tag:
+    scraper.get_data(location.replace(' ',''))
 
-# users = scraper.get_user_mails()
-# uncomment above line will get u list of users with email from the db
+# update user name and email address
+for location in location_tag:
+    scraper.update_primary_link(location.replace(' ',''))
 
-# you maybe delete the db file github_user_data.db before puting urs
+# export specific state(table) to json
+scraper.export_to_json('Abia.json', 'Abia')
+
+# export all db to json file
+scraper.export_all_to_json('data.json', )
+
 ```
 
 - when prompt login ur account (safe) and minimize window (make sure window is keep alive) window will close automatically when done
